@@ -14,7 +14,7 @@
 
 A list of required dependencies is located in requirements.txt and can be installed with: </br>
 
-``` sudo pip3 installl -r  requirements.txt```
+``` sudo pip3 install -r  requirements.txt```
 
 ## Usage
 
