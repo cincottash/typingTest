@@ -40,6 +40,35 @@ def calculateResults(wordBankStripped, timeRan, wordsTyped):
 
     return totalWordsTyped, wordsTypedCorrectly, charsTypedCorrectly, totalCharsTyped, charAccuracy, WPM
 
+def resultsLoop(canvas, canvasWidth, canvasHeight, inactiveColor, font, wordBankStripped, timeRan, wordsTyped):
+    totalWordsTyped, wordsTypedCorrectly, charsTypedCorrectly, totalCharsTyped, charAccuracy, WPM = calculateResults(wordBankStripped, timeRan, wordsTyped)
+
+    exitResults = False
+
+    while(not exitResults):
+
+        for event in pygame.event.get():
+            #Escape will exit the test
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                exitResults = True
+
+        canvas.fill((30, 30, 30))
+
+        wpmText = font.render("Words per minute: {}".format(WPM), True, inactiveColor)
+        totalWordsTypedText = font.render("Total words typed: {}".format(totalWordsTyped), True, inactiveColor)
+        wordsTypedCorrectlyText = font.render("Words typed correctly: {}".format(wordsTypedCorrectly), True, inactiveColor)
+        charsTypedCorrectlyText = font.render("Chars typed correctly: {}".format(charsTypedCorrectly), True, inactiveColor)
+        totalCharsTypedText = font.render("Total chars typed: {}".format(totalCharsTyped), True, inactiveColor)
+        charAccuracyText = font.render("Char accuracy: {} %".format(charAccuracy), True, inactiveColor)
+
+        canvas.blit(wpmText, (canvasWidth/10, canvasHeight*0.1))
+        canvas.blit(charAccuracyText, (canvasWidth/10, canvasHeight*0.2))
+        canvas.blit(totalWordsTypedText, (canvasWidth/10, canvasHeight*0.5))
+        #canvas.blit(wordsTypedCorrectlyText, (canvasWidth/10, canvasHeight*0.3))
+        canvas.blit(charsTypedCorrectlyText, (canvasWidth/10, canvasHeight*0.4))
+        canvas.blit(totalCharsTypedText, (canvasWidth/10, canvasHeight*0.3))
+
+        pygame.display.update()
 
 def main(done, runTime, firstRun, active):
 
@@ -147,37 +176,7 @@ def main(done, runTime, firstRun, active):
     if(text != ""):
         wordsTyped.append(text)
 
-    totalWordsTyped, wordsTypedCorrectly, charsTypedCorrectly, totalCharsTyped, charAccuracy, WPM = calculateResults(wordBankStripped, timeRan, wordsTyped)
-
-    exitResults = False
-
-    
-    while(not exitResults):
-
-        for event in pygame.event.get():
-            #Escape will exit the test
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                exitResults = True
-
-        canvas.fill((30, 30, 30))
-
-        wpmText = font.render("Words per minute: {}".format(WPM), True, inactiveColor)
-        totalWordsTypedText = font.render("Total words typed: {}".format(totalWordsTyped), True, inactiveColor)
-        wordsTypedCorrectlyText = font.render("Words typed correctly: {}".format(wordsTypedCorrectly), True, inactiveColor)
-        charsTypedCorrectlyText = font.render("Chars typed correctly: {}".format(charsTypedCorrectly), True, inactiveColor)
-        totalCharsTypedText = font.render("Total chars typed: {}".format(totalCharsTyped), True, inactiveColor)
-        charAccuracyText = font.render("Char accuracy: {} %".format(charAccuracy), True, inactiveColor)
-
-        #print(len(charAccuracyText))
-        canvas.blit(wpmText, (canvasWidth/10, canvasHeight*0.1))
-        canvas.blit(charAccuracyText, (canvasWidth/10, canvasHeight*0.2))
-        canvas.blit(totalWordsTypedText, (canvasWidth/10, canvasHeight*0.5))
-        #canvas.blit(wordsTypedCorrectlyText, (canvasWidth/10, canvasHeight*0.3))
-        canvas.blit(charsTypedCorrectlyText, (canvasWidth/10, canvasHeight*0.4))
-        canvas.blit(totalCharsTypedText, (canvasWidth/10, canvasHeight*0.3))
-
-        pygame.display.update()
-
+    resultsLoop(canvas, canvasWidth, canvasHeight, inactiveColor, font, wordBankStripped, timeRan, wordsTyped)
 
 if __name__ == '__main__':
     pygame.init()
