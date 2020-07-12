@@ -1,6 +1,40 @@
 import pygame
 import sys
 from exceptions import *
+import random
+
+def populateQueue():
+
+    wordQueueList = []
+    
+    count = 0
+
+    wordBank = []
+
+    text = ""
+
+    wordsTyped = []
+
+    wordBankFile = open("../wordBank.txt", "r")
+    
+    for word in wordBankFile:
+        wordBank.append(word)
+    
+    wordBankFile.close()
+
+    #Get rid of the newline char for each word in the bank
+    wordBankStripped = [x.replace('\n', '') for x in wordBank]
+
+    #Make the order of the words different for each run
+    random.shuffle(wordBankStripped)
+    
+    #Populate the queue with 5 words
+    while(len(wordQueueList) < 5):
+        wordQueueList.append(wordBankStripped[count])
+        count += 1
+
+
+    return wordQueueList, count, wordBankStripped, text, wordsTyped
 
 def argParse():
     try:
