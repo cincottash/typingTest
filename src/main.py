@@ -131,7 +131,13 @@ def main(done, runTime, firstRun, active):
             timeLeft = round(timeLeft, 2)
 
         timeLeftLabel = font.render("Time remaining:", True, activeColor if active else inactiveColor) 
+        
+        #TODO: Figure out how to use the unicode value for inifnity (221)
+        # if(timeLeft == "Infinite"):
+        #     timeLeftText = font.render(221, True, activeColor if active else inactiveColor)
+        # else:
         timeLeftText = font.render(str(timeLeft), True, activeColor if active else inactiveColor)
+        
         canvas.blit(timeLeftLabel, (canvasWidth/20, canvasHeight/12 - boxHeight/2)) 
         canvas.blit(timeLeftText, (canvasWidth/20, canvasHeight/12)) 
 
